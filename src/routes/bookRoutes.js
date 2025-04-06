@@ -6,19 +6,22 @@ const bookService = require("../service/bookService")
 router.get(bookUrl, async (req,res) =>{
     //controll a get request
     try{
-        await bookService.getAllBooks();
-        res.status(200).send("Get Books!!")
+       const allBooks = await bookService.getAllBooks();
+       res.json(allBooks)
     }catch(er){
         console.error(er)
+        res.status(500).send("Internal Server error")
     }
 });
 
 router.post(bookUrl, async (req,res)=>{
     try{
-        await bookService.addBook();
-        res.status(201).send("Add Book!!")
+        console.log("Incoming Book Data...",req.body)
+        await bookService.addBook(req.body);
+        res.status(201).send("Saved Successfully")
     }catch(er){
         console.error(er)
+        res.status(500).send("Internal Server error")
     }
 })
 

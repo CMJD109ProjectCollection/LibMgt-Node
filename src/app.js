@@ -6,7 +6,7 @@ const staffRoutes = require("./routes/staffRoutes")
 const lendingRoutes = require("./routes/lendingRoutes")
 const memberRoutes = require("./routes/memberRoutes")
 const mongoose = require("mongoose")
-
+app.use(express.json())
 //handle routes
 app.use("/api/v1", bookRoutes)
 // app.use("/api/v1",staffRoutes)
