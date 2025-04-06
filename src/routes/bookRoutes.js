@@ -7,7 +7,20 @@ router.get(bookUrl, async (req,res) =>{
     //controll a get request
     try{
        const allBooks = await bookService.getAllBooks();
-       res.json(allBooks)
+       const filteredBooks = allBooks.map(book =>({
+        bookId:book.bookId,
+        title: book.title,
+        isbn:book.title,
+        author:book.author,
+        edition:book.edition,
+        price: book.price,
+        totalQty: book.totalQty,
+        avilableQty:book.avilableQty,
+        lastUpdatedDate: book.lastUpdatedDate,
+        lastUpdatedTime:book.lastUpdatedTime
+       }));
+       console.log("Filterd book",filteredBooks)
+       res.json(filteredBooks)
     }catch(er){
         console.error(er)
         res.status(500).send("Internal Server error")
