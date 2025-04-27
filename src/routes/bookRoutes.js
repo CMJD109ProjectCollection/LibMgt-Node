@@ -10,7 +10,7 @@ router.get(bookUrl, async (req,res) =>{
        const filteredBooks = allBooks.map(book =>({
         bookId:book.bookId,
         title: book.title,
-        isbn:book.title,
+        isbn:book.isbn,
         author:book.author,
         edition:book.edition,
         price: book.price,
