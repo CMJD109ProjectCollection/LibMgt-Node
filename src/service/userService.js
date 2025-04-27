@@ -11,7 +11,7 @@ async function addUser(user){
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            password: hashPassword
+            password: hashPassword,
             role: user.role
          });
          return newUser.save();
