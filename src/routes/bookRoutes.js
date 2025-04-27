@@ -2,8 +2,9 @@ const express = require("express")
 const router = express.Router()
 const bookUrl = "/books"
 const bookService = require("../service/bookService")
+const authTokenData = require("../middleware/authToken")
 
-router.get(bookUrl, async (req,res) =>{
+router.get(bookUrl, authTokenData,async (req,res) =>{
     //controll a get request
     try{
        const allBooks = await bookService.getAllBooks();
