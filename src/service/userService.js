@@ -19,7 +19,5 @@ async function addUser(user){
         console.error(er);
         throw err;
     }
-
-    module.exports = { addUser}
-
 }
+module.exports = { addUser}

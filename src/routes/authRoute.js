@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
+require('dotenv').config()
 const bcrypt = require("bcryptjs");
 const User = require("../model/userModel");
 const { addUser } = require("../service/userService");
 const url = "/auth"
-
+const jwt = require("jsonwebtoken")
+const jwtSecret = process.env.JWT_SECRET;
 // sign up
 router.post(`${url}/signup`,async(req,res)=>{
     const {firstName, lastName, email, password, role} = req.body
@@ -13,8 +15,10 @@ router.post(`${url}/signup`,async(req,res)=>{
         return res.status(401).json({ error: "Missing required filed/s"})
     }
     try{
-        const user = addUser.save(req.body)
+        const user = addUser(req.body)
         // generate token
+        const token = jwt.sign({userId: user.email},jwtSecret,{expiresIn: '1h'})
+        res.status(201).json({message:"User added",token})
 
     }catch(err){
         console.error(err)
@@ -33,4 +37,8 @@ router.post(`${url}/signin`,async(req,res)=>{
         return res.status(401).json({ error: "Invalid credentials"})
     }
     // generate token
+    const token = jwt.sign({userId: user.email},jwtSecret,{expiresIn: '1h'})
+    res.json(token)
 })
+
+module.exports = router;
